@@ -1,0 +1,13 @@
+{
+  "name": "hy-qsyy-tauri",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tauri dev",
+    "prepare:student": "node scripts/prepare-student.mjs",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "1.5.11"
+  }
+}
