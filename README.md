@@ -1,13 +1,11 @@
 # 洽思英语客户端
 
-窗口里打开学生端，并向页面提供本机唯一编码。授权判断在学生端。
+桌面壳，打开线上学生端 `https://x.l121.com/`。
 
 ```bash
-cd hy-qsyy-student && pnpm dev
-cd hy-qsyy-tauri && pnpm install && pnpm dev
+pnpm install
+pnpm dev
 ```
-
-学生端开发地址是 `http://127.0.0.1:5174`。浏览器里直接开这个地址会提示非法访问。
 
 ## Windows 安装包
 

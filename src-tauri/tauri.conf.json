@@ -1,9 +1,8 @@
 {
   "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "pnpm prepare:student",
-    "devPath": "http://127.0.0.1:5174",
-    "distDir": "../dist",
+    "devPath": "https://x.l121.com/",
+    "distDir": "../ui",
     "withGlobalTauri": true
   },
   "package": {
@@ -54,7 +53,30 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": null,
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "scheme": "https",
+          "domain": "x.l121.com",
+          "windows": ["main"],
+          "plugins": [],
+          "enableTauriAPI": true
+        },
+        {
+          "scheme": "http",
+          "domain": "127.0.0.1",
+          "windows": ["main"],
+          "plugins": [],
+          "enableTauriAPI": true
+        },
+        {
+          "scheme": "http",
+          "domain": "localhost",
+          "windows": ["main"],
+          "plugins": [],
+          "enableTauriAPI": true
+        }
+      ]
     },
     "updater": {
       "active": false

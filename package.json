@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "tauri dev",
-    "prepare:student": "node scripts/prepare-student.mjs",
     "build": "tauri build"
   },
   "devDependencies": {
