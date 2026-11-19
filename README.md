@@ -9,7 +9,7 @@ pnpm dev
 
 ## Windows 安装包
 
-GitHub Actions 的 **Build Windows MSI** 生成 Windows 32 位和 64 位 MSI。推送 `v*` 标签或手动运行工作流后，从 Artifacts 下载并解压两个 MSI。安装包内含 WebView2 离线安装程序。
+GitHub Actions 的 **Build Windows MSI** 生成 Windows 32 位和 64 位 MSI。推送 `v*` 标签或手动运行工作流后，从 Artifacts 下载并解压两个 MSI。缺少 WebView2 的电脑可由安装过程联网下载运行时，也可提前安装 WebView2。
 
 ## 内网更新
 
