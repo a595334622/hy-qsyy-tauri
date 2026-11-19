@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "洽思英语",
-    "version": "0.1.1"
+    "version": "0.1.2"
   },
   "tauri": {
     "allowlist": {
@@ -39,13 +39,13 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": "all",
+      "targets": ["msi"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": "",
         "webviewInstallMode": {
-          "type": "downloadBootstrapper"
+          "type": "offlineInstaller"
         },
         "wix": {
           "language": "zh-CN"
@@ -79,7 +79,11 @@
       ]
     },
     "updater": {
-      "active": false
+      "active": true,
+      "dialog": true,
+      "endpoints": ["https://qsyy.l121.com/desktop-updates/latest.json"],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYzRDgzRDQ3OTBDNUY1NzIKUldSeTljV1FSejNZOHpJS3MwdDFRMnZBcnBkRHNlL0VtY2tqcDF2RkZ6TnZlb1kxOHYya29QU0gK",
+      "windows": { "installMode": "passive" }
     },
     "windows": [
       {

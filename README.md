@@ -9,4 +9,16 @@ pnpm dev
 
 ## Windows 安装包
 
-Mac 上打不出 Windows 包。推到 GitHub 后，在 Actions 里运行 **Build Windows**，或推送 `v*` 标签。装好的 MSI 和 NSIS 在 Artifacts 里下载。
+GitHub Actions 的 **Build Windows MSI** 生成 Windows 32 位和 64 位 MSI。推送 `v*` 标签或手动运行工作流后，从 Artifacts 下载并解压两个 MSI。安装包内含 WebView2 离线安装程序。
+
+## 内网更新
+
+客户端启动时读取 `https://qsyy.l121.com/desktop-updates/latest.json`，发现新版后提示安装。已安装 `0.1.1` 的电脑需要手动覆盖安装 `0.1.2`，以后由客户端检查更新。
+
+在本机给两个 MSI 生成 `.msi.zip` 和 `.msi.zip.sig`：
+
+```bash
+python3 scripts/sign-msi.py /path/to/msi-directory
+```
+
+签名使用本机 `keys/updater.key` 和 `keys/updater.password`。将私钥和密码分别安全备份，后续版本继续使用同一密钥。在服务器上传目录的 `desktop-updates/版本号/` 中放置 MSI 和对应的 ZIP。进入后台「系统管理 → 桌面端版本」，填入 MSI 相对路径及 `.sig` 文件内容，再发布版本。
