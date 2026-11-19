@@ -1,13 +1,13 @@
 {
   "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "devPath": "https://x.l121.com/",
-    "distDir": "../ui",
+    "devPath": "https://qsyy.l121.com",
+    "distDir": "https://qsyy.l121.com",
     "withGlobalTauri": true
   },
   "package": {
     "productName": "洽思英语",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "tauri": {
     "allowlist": {
@@ -57,7 +57,7 @@
       "dangerousRemoteDomainIpcAccess": [
         {
           "scheme": "https",
-          "domain": "x.l121.com",
+          "domain": "qsyy.l121.com",
           "windows": ["main"],
           "plugins": [],
           "enableTauriAPI": true

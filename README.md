@@ -1,6 +1,6 @@
 # 洽思英语客户端
 
-桌面壳，打开线上学生端 `https://x.l121.com/`。
+`pnpm dev` 启动的桌面壳和 `pnpm build` 生成的应用都直接加载正式学生端 `https://qsyy.l121.com`。
 
 ```bash
 pnpm install

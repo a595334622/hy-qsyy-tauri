@@ -18,6 +18,7 @@ fn main() {
             auth_code,
             client_secret,
             save_client_secret,
+            clear_client_secret,
             clear_browser_cache,
             quit_app
         ])
@@ -66,6 +67,12 @@ fn clear_browser_cache() -> Result<(), String> {
 #[tauri::command]
 fn quit_app(app: AppHandle) {
     app.exit(0);
+}
+
+/// 后台解绑后清掉本机秘钥。
+#[tauri::command]
+fn clear_client_secret(app: AppHandle) -> Result<(), String> {
+    write_setting(&app, "")
 }
 
 /// 秘钥验证通过后写入本机配置。
