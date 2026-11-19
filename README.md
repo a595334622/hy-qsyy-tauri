@@ -1,4 +1,4 @@
-# 洽思英语客户端
+# 单词速记客户端
 
 `pnpm dev` 启动的桌面壳和 `pnpm build` 生成的应用都直接加载正式学生端 `https://qsyy.l121.com`。
 
@@ -10,6 +10,8 @@ pnpm dev
 ## Windows 安装包
 
 GitHub Actions 的 **Build Windows MSI** 生成 Windows 32 位和 64 位 MSI。推送 `v*` 标签或手动运行工作流后，从 Artifacts 下载并解压两个 MSI。缺少 WebView2 的电脑可由安装过程联网下载运行时，也可提前安装 WebView2。
+
+Windows 打包固定使用 Rust 1.99.1，避免 Rust 1.100.0 与旧版 Windows 依赖组合时将同步函数错误链接到 `vertdll.dll`。升级编译器后需检查生成程序的 DLL 导入表。
 
 ## 内网更新
 

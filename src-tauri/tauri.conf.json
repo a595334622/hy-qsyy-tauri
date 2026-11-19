@@ -6,8 +6,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "洽思英语",
-    "version": "0.1.3"
+    "productName": "单词速记",
+    "version": "0.1.4"
   },
   "tauri": {
     "allowlist": {
@@ -87,7 +87,7 @@
     },
     "windows": [
       {
-        "title": "洽思英语",
+        "title": "单词速记",
         "width": 1280,
         "height": 800,
         "minWidth": 1024,
