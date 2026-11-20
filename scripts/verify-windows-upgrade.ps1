@@ -45,7 +45,8 @@ function Invoke-Msi([string]$Operation, [string]$PathOrCode, [string]$Label) {
 
 $Installer = (Resolve-Path $Installer).Path
 $current = Read-MsiProperties $Installer
-if ($current.ProductVersion -ne "0.1.5" -or $current.UpgradeCode -ne "{6BBDB433-93A4-58A9-9BFD-5C7A0207E900}") {
+$config = Get-Content (Join-Path $PSScriptRoot "../src-tauri/tauri.conf.json") -Raw | ConvertFrom-Json
+if ($current.ProductVersion -ne $config.package.version -or $current.ProductName -ne "洽思英语" -or $current.UpgradeCode -ne "{4D083623-775C-5996-9C2F-123E87C3441B}") {
     throw "Unexpected version or current MSI upgrade identity"
 }
 $previous = @{}
@@ -56,11 +57,11 @@ foreach ($version in @("0.1.3", "0.1.4")) {
     if ($properties.ProductVersion -ne $version) { throw "Downloaded unexpected MSI version" }
     $previous[$version] = @{ Path = $path; Properties = $properties }
 }
-if ($previous["0.1.3"].Properties.UpgradeCode -ne "{4D083623-775C-5996-9C2F-123E87C3441B}") {
-    throw "Unexpected legacy MSI upgrade identity"
+if ($previous["0.1.3"].Properties.UpgradeCode -ne $current.UpgradeCode) {
+    throw "0.1.3 and current MSI must share an upgrade identity"
 }
-if ($previous["0.1.4"].Properties.UpgradeCode -ne $current.UpgradeCode) {
-    throw "0.1.4 and current MSI must share an upgrade identity"
+if ($previous["0.1.4"].Properties.UpgradeCode -ne "{6BBDB433-93A4-58A9-9BFD-5C7A0207E900}") {
+    throw "Unexpected 0.1.4 MSI upgrade identity"
 }
 
 $settings = Join-Path $env:APPDATA "pro.heyue.qsyy\setting.json"
@@ -82,25 +83,30 @@ foreach ($scenario in @("legacy", "current", "both")) {
         if ((Read-ProductState $old.Properties.ProductCode) -ne 5) { throw "Old product was not installed" }
     }
 
-    Invoke-Msi "/i" $Installer "$scenario-upgrade-0.1.5"
-    if ((Read-ProductState $current.ProductCode) -ne 5) { throw "0.1.5 was not installed" }
+    Invoke-Msi "/i" $Installer "$scenario-upgrade"
+    if ((Read-ProductState $current.ProductCode) -ne 5) { throw "New product was not installed" }
     foreach ($version in $versions) {
         if ((Read-ProductState $previous[$version].Properties.ProductCode) -ne -1) {
             throw "$scenario left $version installed alongside the new version"
         }
     }
-    $shortcuts = @($desktopDirectories | ForEach-Object { Join-Path $_ "单词速记.lnk" } | Where-Object { Test-Path $_ })
+    $installLocation = $engine.GetType().InvokeMember("ProductInfo", "GetProperty", $null, $engine, @($current.ProductCode, "InstallLocation"))
+    $executable = Join-Path $installLocation "洽思英语.exe"
+    if (!(Test-Path $executable) -or [Diagnostics.FileVersionInfo]::GetVersionInfo($executable).ProductVersion -ne $current.ProductVersion) {
+        throw "Installed executable is missing or has the wrong version: $executable"
+    }
+    $shortcuts = @($desktopDirectories | ForEach-Object { Join-Path $_ "洽思英语.lnk" } | Where-Object { Test-Path $_ })
     if ($shortcuts.Count -eq 0) { throw "New desktop shortcut is missing" }
     foreach ($shortcut in $shortcuts) {
         $target = $shell.CreateShortcut($shortcut).TargetPath
-        if (!(Test-Path $target) -or [Diagnostics.FileVersionInfo]::GetVersionInfo($target).ProductVersion -ne "0.1.5") {
-            throw "New shortcut does not point to the 0.1.5 executable: $target"
+        if ($target -and $target -ne $executable) {
+            throw "New shortcut points outside the installed app: $target"
         }
     }
     foreach ($directory in $desktopDirectories) {
-        if (Test-Path (Join-Path $directory "洽思英语.lnk")) { throw "Stale legacy desktop shortcut remains" }
+        if (Test-Path (Join-Path $directory "单词速记.lnk")) { throw "Stale 0.1.4 desktop shortcut remains" }
     }
     if ([IO.File]::ReadAllText($settings) -ne $sentinel) { throw "Local activation settings were changed" }
-    Write-Host "$Architecture $scenario upgrade passed: old products removed, shortcut targets 0.1.5, activation settings preserved"
-    Invoke-Msi "/x" $current.ProductCode "$scenario-uninstall-0.1.5"
+    Write-Host "$Architecture $scenario upgrade passed: old products removed, new executable and shortcut installed, activation settings preserved"
+    Invoke-Msi "/x" $current.ProductCode "$scenario-uninstall"
 }

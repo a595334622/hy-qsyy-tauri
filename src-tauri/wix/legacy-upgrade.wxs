@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
-    <!-- 品牌名称曾改变 MSI 升级标识，显式将旧洽思英语纳入同一次升级。 -->
+    <!-- 兼容以“单词速记”名称发布的 0.1.4，与洽思英语旧版一起升级。 -->
     <Property Id="LEGACY_QSYY_PRODUCTS" Secure="yes" />
-    <Upgrade Id="{4D083623-775C-5996-9C2F-123E87C3441B}">
-      <UpgradeVersion Minimum="0.0.0" IncludeMinimum="yes"
-                      Maximum="0.1.4" IncludeMaximum="no"
+    <Upgrade Id="{6BBDB433-93A4-58A9-9BFD-5C7A0207E900}">
+      <UpgradeVersion Minimum="0.1.4" IncludeMinimum="yes"
+                      Maximum="0.1.4" IncludeMaximum="yes"
                       Property="LEGACY_QSYY_PRODUCTS" OnlyDetect="no" />
     </Upgrade>
 
     <DirectoryRef Id="ProgramMenuFolder">
-      <Directory Id="LegacyProgramsFolder" Name="洽思英语" />
+      <Directory Id="LegacyProgramsFolder" Name="单词速记" />
     </DirectoryRef>
     <DirectoryRef Id="DesktopFolder">
       <Component Id="LegacyShortcutCleanup" Guid="*">
         <!-- 旧安装包在升级卸载时跳过 RemoveShortcuts，需要清理遗留入口。 -->
-        <RemoveFile Id="RemoveLegacyDesktopShortcut" Name="洽思英语.lnk" On="install" />
+        <RemoveFile Id="RemoveLegacyDesktopShortcut" Name="单词速记.lnk" On="install" />
         <RemoveFile Id="RemoveLegacyStartShortcut" Directory="LegacyProgramsFolder"
-                    Name="洽思英语.lnk" On="install" />
+                    Name="单词速记.lnk" On="install" />
         <RemoveFile Id="RemoveLegacyUninstallShortcut" Directory="LegacyProgramsFolder"
-                    Name="Uninstall 洽思英语.lnk" On="install" />
+                    Name="Uninstall 单词速记.lnk" On="install" />
         <RemoveFolder Id="RemoveLegacyProgramsFolder" Directory="LegacyProgramsFolder" On="install" />
-        <RegistryValue Root="HKCU" Key="Software\heyue\单词速记" Name="LegacyShortcutCleanup"
+        <RegistryValue Root="HKCU" Key="Software\heyue\洽思英语" Name="LegacyShortcutCleanup"
                        Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
