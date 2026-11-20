@@ -1,6 +1,6 @@
 # 单词速记客户端
 
-`pnpm dev` 启动的桌面壳和 `pnpm build` 生成的应用都直接加载正式学生端 `https://qsyy.l121.com`。
+`pnpm dev` 启动的桌面壳和 `pnpm build` 生成的应用都直接加载正式学生端 `https://www.qiasieng.com`。
 
 ```bash
 pnpm install
@@ -15,7 +15,7 @@ Windows 打包固定使用 Rust 1.99.1，避免 Rust 1.100.0 与旧版 Windows �
 
 ## 内网更新
 
-客户端启动时读取 `https://qsyy.l121.com/desktop-updates/latest.json`，发现新版后提示安装。已安装 `0.1.1` 的电脑需要手动覆盖安装 `0.1.2`，以后由客户端检查更新。
+客户端启动时读取 `https://www.qiasieng.com/desktop-updates/latest.json`，发现新版后提示安装。已安装 `0.1.1` 的电脑需要手动覆盖安装 `0.1.2`，以后由客户端检查更新。
 
 在本机给两个 MSI 生成 `.msi.zip` 和 `.msi.zip.sig`：
 

@@ -1,13 +1,13 @@
 {
   "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "devPath": "https://qsyy.l121.com",
-    "distDir": "https://qsyy.l121.com",
+    "devPath": "https://www.qiasieng.com",
+    "distDir": "https://www.qiasieng.com",
     "withGlobalTauri": true
   },
   "package": {
     "productName": "单词速记",
-    "version": "0.1.3"
+    "version": "0.1.4"
   },
   "tauri": {
     "allowlist": {
@@ -57,7 +57,7 @@
       "dangerousRemoteDomainIpcAccess": [
         {
           "scheme": "https",
-          "domain": "qsyy.l121.com",
+          "domain": "www.qiasieng.com",
           "windows": ["main"],
           "plugins": [],
           "enableTauriAPI": true
@@ -81,7 +81,7 @@
     "updater": {
       "active": true,
       "dialog": true,
-      "endpoints": ["https://qsyy.l121.com/desktop-updates/latest.json"],
+      "endpoints": ["https://www.qiasieng.com/desktop-updates/latest.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYzRDgzRDQ3OTBDNUY1NzIKUldSeTljV1FSejNZOHpJS3MwdDFRMnZBcnBkRHNlL0VtY2tqcDF2RkZ6TnZlb1kxOHYya29QU0gK",
       "windows": { "installMode": "passive" }
     },
