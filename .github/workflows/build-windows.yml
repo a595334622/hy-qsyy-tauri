@@ -67,21 +67,6 @@ jobs:
         if: github.event_name != 'workflow_dispatch' || github.event.inputs.target == 'all' || (github.event.inputs.target == 'x64' && matrix.arch == 'x64') || (github.event.inputs.target == 'x86' && matrix.arch == 'x86')
         uses: actions/upload-artifact@v4
         with:
-          name: 洽思英语-${{ matrix.arch }}-msi
+          name: 单词速记-${{ matrix.arch }}-msi
           path: src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
           if-no-files-found: error
-
-      - name: 验证旧客户端覆盖升级
-        if: github.event_name != 'workflow_dispatch' || github.event.inputs.target == 'all' || (github.event.inputs.target == 'x64' && matrix.arch == 'x64') || (github.event.inputs.target == 'x86' && matrix.arch == 'x86')
-        shell: pwsh
-        run: |
-          $msi = Get-ChildItem "src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi"
-          ./scripts/verify-windows-upgrade.ps1 -Installer $msi.FullName -Architecture '${{ matrix.arch }}'
-
-      - name: 上传覆盖升级日志
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-upgrade-${{ matrix.arch }}-logs
-          path: ${{ runner.temp }}/qsyy-upgrade-${{ matrix.arch }}/*.log
-          if-no-files-found: ignore

@@ -6,8 +6,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "洽思英语",
-    "version": "0.1.5"
+    "productName": "单词速记",
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
@@ -48,9 +48,7 @@
           "type": "downloadBootstrapper"
         },
         "wix": {
-          "language": "zh-CN",
-          "fragmentPaths": ["wix/legacy-upgrade.wxs"],
-          "componentRefs": ["LegacyShortcutCleanup"]
+          "language": "zh-CN"
         }
       }
     },
@@ -89,7 +87,7 @@
     },
     "windows": [
       {
-        "title": "洽思英语",
+        "title": "单词速记",
         "width": 1280,
         "height": 800,
         "minWidth": 1024,
