@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "单词速记",
-    "version": "0.1.4"
+    "version": "0.1.5"
   },
   "tauri": {
     "allowlist": {
@@ -48,7 +48,9 @@
           "type": "downloadBootstrapper"
         },
         "wix": {
-          "language": "zh-CN"
+          "language": "zh-CN",
+          "fragmentPaths": ["wix/legacy-upgrade.wxs"],
+          "componentRefs": ["LegacyShortcutCleanup"]
         }
       }
     },
